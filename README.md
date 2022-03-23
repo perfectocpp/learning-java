@@ -17,7 +17,7 @@ bu BYTECODE ni hohlagan OS ni virtual mashinasiga bersak ishlaysi
 * kasr sonlar    |  float, double          | 4, 8
 * belgilar       |  char                   | 2 [hozirgi kunda]
 * maniqiy tiplar |  boolean                | 1
-```
+``` 
 
 ### Nima uchun tiplashtirilgan: 
 - byte
@@ -49,4 +49,6 @@ Hozirgi kunda yuqoridagi jadvaldan kop belgilarni o'z ichiga oladi
 * 
 * 
 ```
-
+Array n ta birhil tipdagi ma'lumotlar to'plamidan iborat bo'lgan ko=antainer
+* primitive tiplarda hardoim *int a = 4;* deyilganda (istalgan bo'sh koyga)xotiraga yoziladi, shuningdek *int b = a;* dahaman yangi joy ajratiladi!
+* reference typelarda *String s = new String("salom);* 
