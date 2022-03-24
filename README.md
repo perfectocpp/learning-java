@@ -52,3 +52,145 @@ Hozirgi kunda yuqoridagi jadvaldan kop belgilarni o'z ichiga oladi
 Array n ta birhil tipdagi ma'lumotlar to'plamidan iborat bo'lgan ko=antainer
 * primitive tiplarda hardoim *int a = 4;* deyilganda (istalgan bo'sh koyga)xotiraga yoziladi, shuningdek *int b = a;* dahaman yangi joy ajratiladi!
 * reference typelarda *String s = new String("salom);* 
+
+##  OOP
+
+### Class doim 2 ta qismdan iborat bo'ladi
+
+* xotirasida nimadir saqlab turish uchun o'zida atributlar saqlaydi(propertylar deyiladi)
+
+```
+    public class Student {
+        // property, fieldlar, attribute:
+        String name;
+        int point;
+        int age;  
+    }
+```
+
+* xar bitta clasni ozining xususiyatlari bo'ladi (methods deyiladi)   
+   methodlarni minimum yozish qoidasi tip qayataradigan bo'ishi kerak
+```
+    public class Student {
+        String name;
+        int point;
+        int age;
+
+        // method:
+        boolean isPassed(int standard) {
+            return point >= standard;
+        }
+
+        void printStatus(int standard){
+            System.out.printf("%s - %s\n", name, isPassed(standard) ? "passed" : "not passed");
+        }
+    }
+```
+* method overloading
+```
+    class MyMath {
+        // method Overloading
+        int max(int num1, int num2) {
+            return num1 > num2 ? num1 : num2;
+        }
+
+        int max(long num1, long num2) {
+            return num1 > num2 ? num1 : num2;
+        }
+
+        int max(int num1, int num2, int num3) {
+            return this.max(num1, this.max(num2, num3));
+        }
+    }
+
+    public class OverLoading  {
+        public static void main(String[] args) {
+
+            MyMath math = new MyMath();
+
+            System.out.println(math.max(12, 23));
+            System.out.println(math.max(12, 23, 34));
+
+        }
+    }
+```
+
+* constructor
+
+constructor qandaydir klasdan obect yaratib beradigan metod! 
+ faqat u obect yaratilayotgan vaqda chaqiriladi
+
+ javada agar siz constructor yaratmasangiz default o'zining constructori bo'ladi
+
+```
+    class MyMath {
+        int num (int n) {
+            return n;
+        }
+    }
+
+```
+
+``` MyMath math = new MyMath(); //MyMath()
+```
+constructorni methoddan farqi
+1-qoida
+    uning qaytaradigan tipi bo'lmaydi!
+2-qoida
+    constructorni nomi class nomi bilan birhil bo'lishi kerak
+```     // parametrsiz constructor
+        MyMath () {
+
+        }
+```
+agar biz constructor yasamasak default constructor yasaladi uning vazifasi yangi object yasash
+```
+    MyMayh () {}
+``` 
+va har safar object olganimizda har safar constructr ishga tushadi!
+
+* make constructor
+```
+    class Point {
+        int x;
+        int y;
+
+        // constructor overloading
+        Point () {
+            this.x = 0;
+            this.y = 0;
+        }
+
+        Point (int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    public class Constructor {
+        public static void main(String[] args) {
+            Point point = new Point(0, 0);
+            System.out.println(point.x+" "+point.y);
+        }
+    }
+```
+or
+```
+class Point {
+        int x;
+        int y;
+
+        // constructor overloading
+        Point () {
+            this(0, 0);
+        }
+
+        Point (int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+```
+constructor mavhim tarzda yasalgan objectni o'zini qaytaradi
+
+* meros
