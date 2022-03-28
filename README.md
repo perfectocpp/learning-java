@@ -194,3 +194,204 @@ class Point {
 constructor mavhim tarzda yasalgan objectni o'zini qaytaradi
 
 * meros
+
+* final 
+
+agar finalni o'zgaruvchi oldiga qo'ysak o'zgarmas boladi
+agar classni oldiga qo'ysak undan meros olib bo'lmaydi
+agar mehodni oldiga qo'ysak uni override qilib bo'lmaydi
+
+* har bitta klassni birinchi otasi object deyiladi, 
+bu shaqa klasski uni ichidagi bazi metodlar barcha obetlarda bo'ladi!
+
+masalan:
+    equals();
+    hashcode();
+    gatClass();
+    toString();
+    ...
+    .
+    .
+
+* static methods
+
+nega main static bo'lgan
+ main java tomonidan to'g'ridan to'g'ri chaqiriladi
+
+ staticdan turub static bo'lmaganni chaqirib bo'lmaydi
+
+* recursive
+
+### Polimarfizm
+
+
+### exeption
+    * Exeption
+    * polimorfizm
+    * multicache
+
+### encapsulation
+
+javada har bitta klassni (fields or) metodini oz visiblitysi (qayerdan qanday korinishi) bor 
+Access Modifier
+
+1. public {hamma joyda ko'rinadi}
+2. private {e'lon qilingan blockni ichida ko'rinadi}
+3. protected {e'lon qilinga pasket ni ichida ko'rinadi, lekinmeros bo'lib otadi}
+4. no access modifier (pakage levelda)
+
+* **public**
+```
+
+```
+nimaga kerak
+
+## Interface
+
+interface ham huddi classga o'xshab o'z nomiga ega va judaham abstrct narsa
+interface ichida field e'lon qilish mumkin emas!
+interface lar odatdda class ni structurasini doim biril ushlab turish uchun kerak
+Javada interfacelar classda impement olib ishlatish uchun yaslagan
+
+interface o'zining bolalariga qanday metodlari bo'lishini aytadi
+
+ex:
+```
+
+```
+
+## abstract class
+
+## enum
+
+ma'lum bir class bor va uning aniq fieldlari mavjud ex:(season, week, month ...)
+shunday xolatlarda enum tavsiya etiladi
+
+enumning constructori private bo'ladi! va u final bo'ladi
+shu sababli undan volris olib bo'lmaydi!!!
+
+## generics
+
+
+## coll
+
+har-bita priitive tipni class ko'rinishidagi alternivlari bor
+* autobox
+```
+
+```
+
+* unbox
+
+java.util
+
+## java.util
+### collection
+
+collection - abstract interface
+collection - bir-nechta obectlarni to'plami,(qanday obektligini biz xal qilamiz)
+* unga qo'shish, undan o'hirib tashlash , qidirish, ochirish, tozalash ... mumkin
+
+uni ishlatish:
+    uni bolalari ikkita katta kategoriyaga bo'lingan!
+    Ular:
+        * setlar
+        * listlar
+
+#### set
+    * set bu interface, bu collectiondan extend olgani uchun undaham colection ichidaga barcha methodlar bor
+    - setning o'ziga hosligi - bitta setta hechqachon doublikat obekt saqlash mumkinmas!
+   
+    - eng kop ishlatiladingan 2 ta set implemitatiyasi bor
+        1. HashSet
+            HashSet bu stringlarni saqlash uchun top'lam yaratib beradi!
+            *  tartib saqlamaydi, tezroq yozadi
+
+        2. LinkedHashSet 
+            * tartib saqlaydi, nisbatan sekinroq yozadi
+
+        3. TreeSet
+            * barchasini solishtirib chiqib keyin o'rnini topib yozadi!
+
+### list
+    * listham interface va collection dan extend olgan lekin unga o'xshamagan va arrayni alternativi (itereble)
+        - add bor
+        - bir hil ma'lumot saqlaydi
+        - remove qilish mumkin (index va obekt bo'yicha)
+        - indexOf, lastIndexOf
+        - subList
+    
+    - listing judaham mashxur ikkita implemitatiyasi bor
+
+        1. ArrayList
+            * kam yozib ko'p o'qish uchun arrayList zo'r
+            - o'zining ichidagi qiymatlarinin arrayni =ng ichida saqlaydi
+        
+        2. LinkedList
+            - bu obektni oz ichidagi structga qo'shb olib turli linklarda saqlaydi
+
+### map
+    * map - generic class va asatstic array: [key : value]
+
+    HashMap
+    LinkedHashMap
+    TreeMap
+
+## Concurrency
+
+    PROTSESSOR  |   * protsessor ichida nechtadir yadro bo'ladi! yadroning bir sekundni ichida bajarilish chastotasi bor [2.4hz]
+    _________   |       - bitta protsessor 1 core degani - 1 ta yadrosi bor degani
+    |   |   |   |
+    |---|---|   |
+    |___|___|   |
+
+OS operatorlari 1 tadan protsess(potok) degan narsani o'ylab topishgan, har bit protsessni oz priaryiteti bo'ladi va shunga qarab protsessga vaqt ajratiladi yani 1 ta core da parallel ish bajarilishi mumkin emas (ketma-ket juda tez bajariladi)
+
+javada OS ni imkoniyatlaridan foydalanib bitta ishini qandaydir potoklarga bo'lib, bu orqali shu ishlarni parrallel bajarish mumkin
+
+### Thread
+
+    potok Thread degan class orqali yasaladi, uning constructoiga Runable Interface yoki undan implemet qilingan obektni vazida qilib berib yuorish mumkin va undan so'ng uni start qilganimdan so'ng u ishlashni boshlaydi
+
+```// Runnable dan implements olgan class
+    public class MyTask implements Runnable{
+        private String threadName;
+        private long sleepTime;
+
+        public MyTask (String threadName, long sleepTime){
+            this.threadName = threadName;
+            this.sleepTime = sleepTime;
+        }
+
+        @Override
+        public void run() {
+            while (true){
+                System.out.println(threadName);
+                try {
+                    Thread.sleep(sleepTime);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+```
+``` // potok yasash va start berish
+    public class Concurrency {
+        public static void main(String[] args) {
+
+            MyTask task1 = new MyTask("thread-1", 1000);
+
+            Thread thread1 = new Thread(task1);
+            Thread thread2 = new Thread(new MyTask("thread-2", 1000));
+
+            thread1.start();
+            thread2.start();
+
+        }
+    }
+
+```
+
+
+
